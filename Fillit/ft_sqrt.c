@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_sqrt(int nb)
-{
-	int x;
+#include "f.h"
 
-	x = 2;
-	while (x * x < nb)
-		x++;
-	return (x);
+int		ft_sqrt(int len)
+{
+	int i;
+
+	i = 2;
+	while (i * i < len)
+		i++;
+	return (i);
 }
