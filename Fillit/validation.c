@@ -16,89 +16,143 @@
 int		newline_check(char *s)
 {
 	int count;
-	int i;
 
 	count = 1;
-	i = 0;
-
 	while (count >= 1)
 	{
-		if ((s[i] != '.' || s[i] != '#') && s[i + 4] != '\n')
+		if ((*s != '.' || *s != '#') && *(s + 4) != '\n')
 			return (0);
 		if (count == 4)
 		{
-			if (s[i + 5] == '\n' && (s[i + 6] == '.' || s[i + 6] == '#'))
+			if (*(s + 5) == '\n' && (*(s + 6) == '.' || *(s + 6) == '#'))
 				return (1);
-			else if (s[i + 5] == '\0')
+			else if (*(s + 5) == '\0')
 				return (1);
 			else
 				return (0);
 		}
 		count++;
-		i += 5;
+		s += 5;
 	}
 	return (1);
 }
 
-int		tetr_check(char **str, int j, int i)
+int		sharp_numb_check(char *s)
 {
-	int conn;
+	int count;
+	int sharp;
 
-	conn = 0;
-	if (str[j][i + 1] == '#')
-		conn++;
-	if (str[j][i - 1] == '#')
-		conn++;
-	if (str[j][i + 5] == '#')
-		conn++;
-	if (str[j][i - 5] == '#')
-		conn++;
-return (conn);
+	sharp = 0;
+	count = 0;
+	while (count < 19)
+	{
+		if (*s == '#')
+			sharp++;
+		s++;
+		count++;
+	}
+	return (sharp == 4);
 }
 
-int		find_sharp(char *buf)
+int		tetr_check(char *str, int i)
 {
-	char **str;
-	int s;
-	int l;
 	int conn;
 
-	s = 0;
-	l = 0;
 	conn = 0;
-	if ((str = ft_strsplit(buf, '\n')) != NULL)
+	if (str[i + 1] == '#')
+		conn++;
+	if (str[i - 1] == '#')
+		conn++;
+	if (i > 5 && str[i - 5] == '#')
+		conn++;
+	if (str[i + 5] == '#')
+		conn++;
+//	printf("coord: %d%d\n",j,i);
+//	printf("%d\n", conn);
+	return (conn);
+}
+
+int		find_sharp(char *buf, int i)
+{
+	int conn;
+	int count;
+
+	count = 0;
+	conn = 0;
+	while (count < 19)
 	{
-		while (l < 4)
+		if (buf[i] == '#')
+			conn += tetr_check(buf, i);	
+		i++;
+		count++;
+	}
+	//	printf("%d\n", conn);
+	if (conn == 6 || conn == 8)
+		return (1);
+	return (0);
+}
+
+int		ft_validation(char *buf)
+{
+	int i;
+
+	i = 0;
+	if (ft_strlen(buf) < 21 || ft_strlen(buf) > 545)
+		return (0);
+	while (buf[i])
+	{
+		if (newline_check(&buf[i]) == 1)
 		{
-			while (s < 4)
+//			printf("%s\n", "square OK");
+			if (sharp_numb_check(&buf[i]) == 1)
 			{
-				if (str[l][s] != '#')
-					s++;
+//				printf("%s\n", "sharp numbers OK");
+				if (find_sharp(buf, i) == 1)
+				{
+//					printf("%s\n", "connection OK");
+					if (buf[i + 20] == '\0')
+						return (1);
+					if (buf[i + 20] == '\n')
+						i += 21;
+				}
 				else
-					conn += tetr_check(str, l, s);
+				{
+//					printf("%s\n","connection KO" );
+					return (0);
+				}
 			}
-			s = 0;
-			l++;
+			else
+			{
+//				printf("%s\n", "sharp numbers KO");
+				return (0);
+			}
 		}
-		if (conn == 6 || conn == 8)
-			return (1);
+		else
+		{
+//			printf("%s\n", "square KO");
+			return (0);
+		}
 	}
 	return (0);
 }
 
 int		main()
 {
-	printf("result: %d\n", find_sharp("####\n....\n....\n....\n"));
+//	printf("result: %d\n", find_sharp(".#...#...#...#.."));
+//	char **arr;
+//	printf("result :%d\n", newline_check("....\n....\n####\n....\n"));
+//	arr = ft_strsplit(".#...#...#...#..", '\n');
+//	printf("%s\n", arr[0]);
+//	printf("%d\n", find_sharp("...#\n...#\n...#\n...#\n", 0));
+//	printf("result: %d\n", ft_validation("...#\n...#\n...#\n...#\n\n....\n####\n....\n.....\n"));
+//	printf("%d\n", sharp_numb_check("#...\n#...\n#...\n#...\n"));
+	if (ft_validation("...#\n...#\n...#\n...#\n\n....\n####\n....\n.....\n") == 0)
+	{
+		ft_putstr("error\n");
+		exit (0);
+	}
 	return (0);
 }
-
-
-
-
-
-
-
-
 
 
 
