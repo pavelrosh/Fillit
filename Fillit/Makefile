@@ -10,29 +10,28 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fillit
+NAME = f.a
 
-SRCS = 
+HEADER = f.h
 
-OBJ = *.o
+FLAGS = -Wall -Werror -Wextra
 
-INC = includes/
+SRC = ft_create_list.c ft_create_map.c ft_parse.c 
 
-FLAGS = -Wall -Wextra -Werror
+OBJ = ft_create_list.o ft_create_map.o ft_parse.o 
 
 all: $(NAME)
 
-$(NAME) :
-	@make -C libft
-	@gcc $(FLAGS) -I $(INC) -c $(SRCS)
-	@gcc $(OBJ) -L libft/ -lft -o $(NAME)
+$(NAME):
+	@gcc -c $(SRC) $(FLAGS)
+	@ar rc $(NAME) $(OBJ) $(HEADER)
 
 clean:
-	@make -C libft/ clean
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	@make -C libft/ fclean
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

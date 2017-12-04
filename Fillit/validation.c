@@ -146,7 +146,7 @@ int		main()
 //	printf("%d\n", find_sharp("...#\n...#\n...#\n...#\n", 0));
 //	printf("result: %d\n", ft_validation("...#\n...#\n...#\n...#\n\n....\n####\n....\n.....\n"));
 //	printf("%d\n", sharp_numb_check("#...\n#...\n#...\n#...\n"));
-	if (ft_validation("...#\n...#\n...#\n...#\n\n....\n####\n....\n.....\n") == 0)
+	if (ft_validation("...#\n...#\n...#\n...#\n\n....\n####\n....\n....\n") == 0)
 	{
 		ft_putstr("error\n");
 		exit (0);

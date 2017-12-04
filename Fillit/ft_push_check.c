@@ -86,57 +86,8 @@ int		ft_push_check(t_position *tetr, char **map, int map_size)
 	x = 0;
 	y = 0;
 	ft_x_increment(tetr);
-//	printf("%d %d\n", tmp->xy[0][0], tmp->xy[0][1]);
 	while (x < 4)
 	{
-//		printf("%d %d\n", tmp->xy[x][y], tmp->xy[x][y + 1]);
-		if (map[tetr->xy[x][y + 1]][tetr->xy[x][y]] == '#')
-		{
-			ft_x_increment(tetr);
-			if (ft_walls_check(tetr, map_size, 1) == 1)
-				x = 0;
-			else
-			{
-				//printf("%d %d\n", tetr->xy[0][0], tetr->xy[0][1]);
-				ft_to_left_wall(tetr);
-				ft_y_increment(tetr);
-				if (ft_walls_check(tetr, map_size, -1) == 1)
-					x = 0;
-				else
-					return (0);
-			}
-		}
-		else
-			x++;
-//		printf("x = %d\n", x);
-	}
-	printf("%d %d\n", tetr->xy[0][0], tetr->xy[0][1]);
-	printf("%d %d\n", tetr->xy[1][0], tetr->xy[1][1]);
-	printf("%d %d\n", tetr->xy[2][0], tetr->xy[2][1]);
-	printf("%d %d\n", tetr->xy[3][0], tetr->xy[3][1]);
-	return (1);
-}
-
-int main()
-{
-	t_position *head;
-	char **map;
-	char **tetr;
-
-	tetr = ft_strsplit("####\n....\n....\n....\n", '\n');
-	map = ft_strsplit("#...\n...#\n..#.\n...#\n", '\n');
-	head = ft_create_list(tetr, 4);
-	
-	printf("%d\n", ft_push_check(head, map, 4));
-	return (0);
-}
-
-	while (x < 4)
-	{
-//		printf("%d %d\n", tmp->xy[x][y], tmp->xy[x][y + 1]);
-		// if (map[tetr->xy[x][y + 1]][tetr->xy[x][y]] == '#')
-		// {
-		//	ft_x_increment(tetr);
 		if (ft_walls_check(tetr, map_size, 1) == 1)
 		{
 			if (map[tetr->xy[x][y + 1]][tetr->xy[x][y]] == '#')
@@ -152,14 +103,35 @@ int main()
 			if (ft_walls_check(tetr, map_size, -1) == 1)
 				x = 0;
 			else
+			{
+				// printf("%d %d\n", tetr->xy[0][0], tetr->xy[0][1]);
+				// printf("%d %d\n", tetr->xy[1][0], tetr->xy[1][1]);
+				// printf("%d %d\n", tetr->xy[2][0], tetr->xy[2][1]);
+				// printf("%d %d\n", tetr->xy[3][0], tetr->xy[3][1]);
 				return (0);
+			}
+		}
 	}
+	// printf("%d %d\n", tetr->xy[0][0], tetr->xy[0][1]);
+	// printf("%d %d\n", tetr->xy[1][0], tetr->xy[1][1]);
+	// printf("%d %d\n", tetr->xy[2][0], tetr->xy[2][1]);
+	// printf("%d %d\n", tetr->xy[3][0], tetr->xy[3][1]);
+	return (1);
+}
 
-//		}
-//		else
-//			x++;
-//		printf("x = %d\n", x);
-	}
+// int main()
+// {
+// 	t_position *head;
+// 	char **map;
+// 	char **tetr;
+
+// 	tetr = ft_strsplit("....\n####\n....\n....\n", '\n');
+// 	map = ft_strsplit("....\n.##.\n..##\n....\n", '\n');
+// 	head = ft_create_list(tetr, 4);
+	
+// 	printf("%d\n", ft_push_check(head, map, 4));
+// 	return (0);
+// }
 
 
 

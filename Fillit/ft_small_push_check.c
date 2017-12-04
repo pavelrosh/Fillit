@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_left_corner.c                                   :+:      :+:    :+:   */
+/*   ft_check_push.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proshchy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 17:37:04 by proshchy          #+#    #+#             */
-/*   Updated: 2017/11/30 17:37:07 by proshchy         ###   ########.fr       */
+/*   Created: 2017/12/04 18:17:37 by proshchy          #+#    #+#             */
+/*   Updated: 2017/12/04 18:17:39 by proshchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "f.h"
 
-void	ft_left_corner(t_position *tetr)
+int		ft_small_push_check(t_position *tetr, char **map)
 {
-	int min_x;
-	int min_y;
 	int x;
-	int y;
 
-	x = 1;
-	y = 0;
-	min_x = tetr->xy[0][0];
-	min_y = tetr->xy[0][1];
-	while (x < 4)
-	{
-		if (min_x > tetr->xy[x][0])
-			min_x = tetr->xy[x][0];
-		if (min_y > tetr->xy[x][1])
-			min_y = tetr->xy[x][1];
-		x++;
-	}
 	x = 0;
 	while (x < 4)
 	{
-		tetr->xy[x][0] -= min_x;
-		tetr->xy[x][1] -= min_y;
-		x++;
+		if (map[tetr->xy[x][1]][tetr->xy[x][0]] != '#')
+			x++;
+		else
+			return (0);
 	}
+	return (1);
 }
