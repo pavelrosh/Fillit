@@ -25,7 +25,6 @@ void	ft_clear(t_position *tetr, char **map)
 		map[tetr->xy[x][1]][tetr->xy[x][0]] = '.';
 		x++;
 	}
-	ft_left_corner(tetr);
 }
 
 // int	main()

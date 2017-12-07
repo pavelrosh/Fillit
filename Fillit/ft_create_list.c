@@ -45,8 +45,8 @@ t_position		*ft_create_list(char **buf, int lines_numb)
 					elem = elem->next;
 					i += 4;
 				}
-				elem = elem->prev;
-				elem->next = NULL;
+				elem->prev->next = NULL;
+			//	elem->next = NULL;
 			}
 			else
 				head->next = NULL;
