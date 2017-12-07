@@ -23,6 +23,7 @@
 typedef struct			s_position 
 {
 	int					**xy;
+	char				c;
 	struct s_position	*next;
 	struct s_position	*prev;
 }						t_position;

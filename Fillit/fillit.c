@@ -15,12 +15,9 @@
 
 void		ft_fillit(t_position *coord, char **map, int map_size)
 {
-	int i;
-
-	i = 0;
 	ft_left_corner(coord);
 //	ft_left_corner(coord->next);
-	while (/*coord*/i < 4)
+	while (coord)
 	{
 		//ft_left_corner(coord);
 		if (ft_small_push_check(coord, map) == 1) // 
@@ -29,7 +26,7 @@ void		ft_fillit(t_position *coord, char **map, int map_size)
 			ft_push(coord, map);
 			coord = coord->next;
 //			printf("%s\n",coord);
-			printf("%s\n","0");
+//			printf("%s\n","0");
 		}
 		else
 		{
@@ -37,21 +34,16 @@ void		ft_fillit(t_position *coord, char **map, int map_size)
 			//ft_clear(coord, map);
 			if (ft_push_check(coord, map, map_size) == 1) // move -> can push? move:exit;
 			{
-				printf("%s\n", "1");
+//				printf("%s\n", "1");
 				ft_push(coord, map);
 				coord = coord->next;
 			}
 			else
 			{
-			//	if (coord == head)
-			//		ft_fillit(coord, map_size++);
-			//	else
-				//map_size++;
 				printf("%s\n", "404");
-					coord = coord->prev;
+				coord = coord->prev;
 			}
 		}
-		i++;
 	}
 }
 
@@ -61,10 +53,10 @@ int	main()
 	char **buffer;
 	char **map;
 	t_position *coord;
-	buffer = ft_strsplit("....\n####\n....\n....\n\n.##.\n.##.\n....\n....\n\n#...\n#...\n#...\n#...\n", '\n');
+	buffer = ft_strsplit("....\n####\n....\n....\n\n##..\n##..\n....\n....\n\n####\n....\n....\n....\n", '\n');
 //	printf("%s\n", "tyt");
 	coord = ft_create_list(buffer, 10);
-	map = ft_create_map(5);
+	map = ft_create_map(4);
 	i = 0;
 	ft_fillit(coord, map, 4);
 	while (i < 4)
