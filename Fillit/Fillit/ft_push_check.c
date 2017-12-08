@@ -91,7 +91,10 @@ int		ft_push_check(t_position *tetr, char **map, int map_size)
 		if (ft_walls_check(tetr, map_size, 1) == 1)
 		{
 			if (map[tetr->xy[x][y + 1]][tetr->xy[x][y]] != '.')
+			{
 				ft_x_increment(tetr);
+				x = 0;
+			}
 			else
 				x++;
 		}

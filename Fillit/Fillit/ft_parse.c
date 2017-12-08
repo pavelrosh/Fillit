@@ -34,7 +34,7 @@ void			ft_hard_left_corner(int **tetr_xy)
 	x = 0;
 	while (x < 4)
 	{
-		tetr_xy[x][0] -= min_x;
+		tetr_xy[x][0] -= (min_x + 1);
 		tetr_xy[x][1] -= min_y;
 		x++;
 	}
