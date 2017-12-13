@@ -10,31 +10,33 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = f.a
+NAME = fillit
 
-HEADER = f.h
+SRCS = src/ft_create_list.c src/ft_create_map.c src/ft_parse.c src/ft_push.c \
+		src/ft_small_push_check.c src/ft_left_corner.c src/ft_push_check.c \
+		src/ft_clear.c src/ft_increment_map.c src/fillit.c src/validation.c\
+		src/valid_helper.c
 
-FLAGS = -Wall -Werror -Wextra
+OBJ = *.o
 
-SRC = ft_create_list.c ft_create_map.c ft_parse.c ft_push.c\
-		ft_small_push_check.c ft_left_corner.c ft_push_check.c\
-		ft_clear.c ft_increment_map.c
+INC = includes/
 
-OBJ = ft_create_list.o ft_create_map.o ft_parse.o ft_push.o\
-		ft_small_push_check.o ft_left_corner.o ft_push_check.o\
-		ft_clear.o ft_increment_map.o
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME):
-	@gcc -c $(SRC) $(FLAGS)
-	@ar rc $(NAME) $(OBJ) $(HEADER)
+$(NAME) :
+	@make -C libft
+	@gcc $(FLAGS) -I $(INC) -c $(SRCS)
+	@gcc $(OBJ) -L libft/ -lft -o $(NAME)
 
 clean:
-	@rm -rf $(OBJ)
+	@make -C libft/ clean
+	@rm -f $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
+	@make -C libft/ fclean
+	@rm -f $(NAME)
 
 re: fclean all
 
