@@ -12,8 +12,6 @@
 
 #include "fillit.h"
 
-int g_fd;
-
 void		print_map(void)
 {
 	int		i;
@@ -36,30 +34,39 @@ void		print_map(void)
 
 void		ft_fillit(t_position *coord, int map_size)
 {
-	while (coord)
+	if (ft_small_push_check(coord) == 1)
 	{
-		if (ft_push_check(coord, map_size) == 1)
+		ft_push(coord);
+		coord = coord->next;
+	}
+	else
+	{
+		while (coord)
 		{
-			ft_push(coord);
-			coord = coord->next;
-		}
-		else
-		{
-			if (coord->c == 'A')
+			if (ft_push_check(coord, map_size) == 1)
 			{
-				map_size++;
-				g_map = ft_increment_map(map_size);
-				ft_left_corner(coord);
-				ft_fillit(coord, map_size);
+				ft_push(coord);
+				coord = coord->next;
 			}
-			ft_left_corner(coord);
-			coord = coord->prev;
-			ft_clear(coord);
+			else
+			{
+				if (coord->c == 'A')
+				{
+					map_size++;
+					g_map = ft_increment_map(map_size);
+					ft_left_corner(coord);
+					ft_fillit(coord, map_size);
+				}
+				ft_left_corner(coord);
+				coord = coord->prev;
+				ft_clear(coord);
+			}
 		}
 	}
 	if (coord != NULL)
 		ft_fillit(coord, map_size);
-	print_map();
+	else
+		print_map();
 }
 
 int			ft_sqrt(int len)
@@ -90,6 +97,7 @@ int			count_tetr(char *str)
 
 int			main(int argc, char **argv)
 {
+	int			fd;
 	int			bytes;
 	char		**buffer;
 	char		*buf;
@@ -101,11 +109,15 @@ int			main(int argc, char **argv)
 		ft_putstr("usage: fillit input_file\n");
 		exit(0);
 	}
-	g_fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	buf = (char*)malloc(545 + 1);
-	bytes = read(g_fd, buf, 545 + 1);
+	bytes = read(fd, buf, 545 + 1);
 	buf[bytes] = '\0';
-	ft_oshibka(buf);
+	if (ft_validation(buf) == 0)
+	{
+		ft_putstr("error\n");
+		exit(0);
+	}
 	buffer = ft_strsplit(buf, '\n');
 	coord = ft_create_list(buffer, 10);
 	map_size = ft_sqrt(count_tetr(buf) * 4);

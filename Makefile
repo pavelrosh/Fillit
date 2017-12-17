@@ -14,8 +14,7 @@ NAME = fillit
 
 SRCS = src/ft_create_list.c src/ft_create_map.c src/ft_parse.c src/ft_push.c \
 		src/ft_small_push_check.c src/ft_left_corner.c src/ft_push_check.c \
-		src/ft_clear.c src/ft_increment_map.c src/fillit.c src/validation.c\
-		src/valid_helper.c
+		src/ft_clear.c src/ft_increment_map.c src/fillit.c src/validation.c
 
 OBJ = *.o
 
